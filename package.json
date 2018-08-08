@@ -10,7 +10,7 @@
 		"date",
 		"durations",
 		"intervals",
-		"ISO-8601"
+		"ISO-8601",
 		"time"
 	],
 	"license":"GPL-3.0",
