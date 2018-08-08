@@ -32,4 +32,4 @@ Get week of year.
 Math.ceil( timeDuration.getWeeksOfYear());
 // 4
 ```
-TimeDuration also works with `BetterDate` in every place `Date` can be used.
+TimeDuration also works with [`BetterDate`](https://github.com/MarkMYoung/BetterDate "BetterDate") in every place `Date` can be used.
