@@ -1,0 +1,31 @@
+{
+	"name":"timeduration",
+	"description":"A 'TimeDuration' is essentially a 'Date' that understands it is a relative time, not an absolute time.",
+
+	"authors":["Mark M. Young"],
+	"dependencies":{},
+	"ignore":
+	[
+		"**/.*",
+		"bower_components",
+		"node_modules",
+		"_notes"
+	],
+	"keywords":
+	[
+		"date",
+		"durations",
+    "intervals",
+    "ISO-8601"
+		"time"
+	],
+	"license":"GPL-3.0",
+	"main":
+	[
+		"index.js"
+	],
+	"moduleType":
+	[
+		"globals"
+	]
+}
