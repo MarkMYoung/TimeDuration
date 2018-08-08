@@ -1,0 +1,34 @@
+{
+	"name":"timeduration",
+	"version":"0.0.1",
+	"description":"A 'TimeDuration' is essentially a 'Date' that understands it is a relative time, not an absolute time.",
+
+	"author":"Mark M. Young",
+	"dependencies":{},
+	"keywords":
+	[
+		"date",
+		"durations",
+    "intervals",
+    "ISO-8601"
+		"time"
+	],
+	"license":"GPL-3.0",
+	"main":"index.js",
+	"browser":
+	{
+		"timeduration":"./src/TimeDuration.js",
+		"timeinterval":"./src/TimeInterval.js",
+		"timeintervaliterator":"./src/TimeIntervalIterator.js"
+	},
+	"homepage":"https://github.com/MarkMYoung/TimeDuration",
+	"bugs":
+	{
+		"url":"https://github.com/MarkMYoung/TimeDuration/issues"
+	},
+	"repository":
+	{
+		"type":"git",
+		"url":"https://github.com/MarkMYoung/TimeDuration.git"
+	}
+}
