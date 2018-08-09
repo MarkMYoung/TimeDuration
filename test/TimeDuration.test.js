@@ -45,5 +45,9 @@ entryCursor = null;
 for( var i = 0; i <= 40; ++i )
 {entryCursor = entryIterator.next();}
 
-for( entryCursor = entryIterator.next(), i = 0; !entryCursor.done && i <= 5; entryCursor = entryIterator.next(), ++i )
-{console.log( entryCursor.value[ 1 ].toDateString());}
+// Iterating all-in-one with a compound for-loop.
+timeInterval = new TimeInterval( ''.concat( 'R/', (new Date( 2096, 1, 29, 15, 30, 42 )).toISOString(), '/', 'P1Y' ));
+for( i = 0, valueIterator = timeInterval.values(), valueCursor = valueIterator.next();
+	i <= 9 && !valueCursor.done;
+	++i, valueCursor = valueIterator.next())
+{console.log( valueCursor.value.toISOString());}
