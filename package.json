@@ -1,6 +1,6 @@
 {
 	"name":"@markmyoung/timeduration",
-	"version":"0.0.1",
+	"version":"0.0.2",
 	"description":"A 'TimeDuration' is essentially a 'Date' that understands it is a relative time, not an absolute time.",
 
 	"author":"Mark M. Young",
