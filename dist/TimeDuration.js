@@ -590,7 +590,6 @@ let TimeDuration = (function( Date, undefined )
 	//};
 	return( TimeDuration );
 })( Date );
-(module || {'exports':{}}).exports = TimeDuration;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 // @version v0.0.1 (2018-07-12)
@@ -721,7 +720,6 @@ class TimeIntervalIterator
 		return( cursor );
 	}
 }
-(module || {'exports':{}}).exports = TimeIntervalIterator;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 // @version v0.0.1 (2016-09-02)
@@ -1153,5 +1151,7 @@ let TimeInterval = (function( Date, TimeDuration, TimeIntervalIterator, undefine
 	}, this );
 	return( TimeInterval );
 })( Date, TimeDuration, TimeIntervalIterator );
-(module || {'exports':{}}).exports = TimeInterval;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
+(module || {'exports':{}}).exports.TimeDuration = TimeDuration;
+(module || {'exports':{}}).exports.TimeIntervalIterator = TimeIntervalIterator;
+(module || {'exports':{}}).exports.TimeInterval = TimeInterval;
