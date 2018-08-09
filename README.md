@@ -3,33 +3,78 @@
 `TimeInterval` is a JavaScript class encapsulating [ISO-8601 intervals](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) using `Date` and `TimeDuration` with an API similar to the built-in `Date`.
 `TimeIntervalIterator` is a JavaScript iterator for making reusable, flexible iterations over `TimeInterval`s.
 ```JavaScript
-let timeDuration = new TimeDuration();
+let endingDate = new Date( 2016, 7, 22, 10, 27, 13 );
+let beginningDate = new Date( 1977, 9, 1, 15, 30, 42 );
+let duration_ms = endingDate - beginningDate;
+let timeDuration = new TimeDuration( duration_ms );
+timeDuration.toISOString();
+// "P38Y10M20DT18H56M31S"
 ```
-The '1' is one-indexed to intuitively mean 'January', not zero-indexed to mean 'February'.
 ```JavaScript
-timeDuration = new TimeDuration( 2017, 1, 26 );
-new Date( timeDuration );
-// Thu Jan 26 2017 00:00:00 GMT-0600 (Central Standard Time)
+let iso8601_datetime_duration = 'P38Y10M20DT18H56M31S';
+let timeDuration = new TimeDuration( iso8601_datetime_duration );
+timeDuration.toISOString();
+// "P38Y10M20DT18H56M31S"
 ```
-Remove 10 hours from a 'TimeDuration':
 ```JavaScript
-let epoch_ms = timeDuration.addHours( -10 );
-// 1485374400000
-timeDuration.toString();
-// Wed Jan 25 2017 14:00:00 GMT-0600 (Central Standard Time)
+let iso8601_extended_duration = 'P0038-10-20T18:56:31';
+let timeDuration = new TimeDuration( iso8601_extended_duration );
+timeDuration.toISOString();
+// "P38Y10M20DT18H56M31S"
 ```
-Change the time zone offset (and name) without affecting the represented time.
+# TimeInterval
+An interval of time which begins and ends at the same time as a duration covers the same amount of time.
 ```JavaScript
-timeDuration.setTimezoneOffset( 480 );
-timeDuration.setTimezoneName( 'America/Los_Angeles' );
-timeDuration.toString();
-// Wed Jan 25 2017 12:00:00 GMT-0800 (America/Los_Angeles)
-new Date( timeDuration );
-// Wed Jan 25 2017 14:00:00 GMT-0600 (Central Standard Time)
+let endingDate = new Date( 2016, 7, 22, 10, 27, 13 );
+let beginningDate = new Date( 1977, 9, 1, 15, 30, 42 );
+let timeDuration = new TimeDuration( endingDate - beginningDate );
+let timeInterval = new TimeInterval( ''.concat( beginningDate.toISOString(), '/', endingDate.toISOString()));
+timeInterval.toISOString()
+// "1977-10-01T20:30:42.000Z/2016-08-22T15:27:13.000Z"
+timeInterval.getTime() === timeDuration.getTime();
+// true
 ```
-Get week of year.
+A repeating interval can be traversed through time.
+Moving forward in time one year at a time, for 40 increments.
 ```JavaScript
-Math.ceil( timeDuration.getWeeksOfYear());
-// 4
+let beginningDate = new Date( 1977, 9, 1, 15, 30, 42 );
+let timeInterval = new TimeInterval( ''.concat( 'R/', beginningDate.toISOString(), '/', 'P1Y' ));
+timeInterval.toISOString();
+// "R/1977-10-01T20:30:42.000Z/P1Y"
+let entryIterator = timeInterval.entries();
+let entryCursor = null;
+for( var i = 0; i <= 40; ++i )
+{entryCursor = entryIterator.next();}
+// {"done":false,"value":[40,"2017-10-01T20:30:42.000Z"]}
 ```
+Moving backward in time one year at a time, for 40 increments.
+```JavaScript
+let endingDate = new Date( 2016, 7, 22, 10, 27, 13 );
+let timeInterval = new TimeInterval( ''.concat( 'R/', 'P1Y', '/', endingDate.toISOString()));
+timeInterval.toISOString();
+// "R/P1Y/2016-08-22T15:27:13.000Z"
+let entryIterator = timeInterval.entries();
+let entryCursor = null;
+for( var i = 0; i <= 40; ++i )
+{entryCursor = entryIterator.next();}
+// {"done":false,"value":[40,"1976-08-22T15:27:13.000Z"]}
+```
+Looping through an interval in a compound for-loop.  Notice how the leap day is handled correctly, seemlessly, and painlessly.
+```JavaScript
+let timeInterval = new TimeInterval( ''.concat( 'R/', (new Date( 2096, 1, 29, 15, 30, 42 )).toISOString(), '/', 'P1Y' ));
+for( let i = 0, valueIterator = timeInterval.values(), valueCursor = valueIterator.next();
+	i <= 9 && !valueCursor.done;
+	++i, valueCursor = valueIterator.next())
+{valueCursor.value.toISOString();}
+// 2096-02-29T21:30:42.000Z
+// 2097-03-01T21:30:42.000Z
+// 2098-03-01T21:30:42.000Z
+// 2099-03-01T21:30:42.000Z
+// 2100-03-01T21:30:42.000Z
+// 2101-03-01T21:30:42.000Z
+// 2102-03-01T21:30:42.000Z
+// 2103-03-01T21:30:42.000Z
+// 2104-02-29T21:30:42.000Z
+```
+
 TimeDuration also works with [`BetterDate`](https://github.com/MarkMYoung/BetterDate "BetterDate") in every place `Date` can be used.
