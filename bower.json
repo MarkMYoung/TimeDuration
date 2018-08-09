@@ -1,5 +1,5 @@
 {
-	"name":"timeduration",
+	"name":"@markmyoung/timeduration",
 	"description":"A 'TimeDuration' is essentially a 'Date' that understands it is a relative time, not an absolute time.",
 
 	"authors":["Mark M. Young"],
